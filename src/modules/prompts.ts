@@ -2,15 +2,17 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 export function registerPrompts(server: McpServer) {
-  server.prompt(
+  server.registerPrompt(
     "echo",
-    { message: z.string() },
+    {
+      argsSchema: { message: z.string() }
+    },
     ({ message }) => ({
       messages: [{
         role: "user",
         content: {
           type: "text",
-          text: `Please process this message: ${message}`
+          text: `Use math-tool to elaborate this operation: ${message}`
         }
       }]
     })

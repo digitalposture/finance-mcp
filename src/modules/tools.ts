@@ -3,12 +3,14 @@ import { z } from "zod";
 
 export function registerTools(server: McpServer) {
   // Math tool
-  server.tool(
+  server.registerTool(
     "math-tool",
     {
-      operation: z.enum(["add", "subtract", "multiply", "divide"]),
-      num1: z.string(),
-      num2: z.string(),
+      inputSchema: {
+        operation: z.enum(["add", "subtract", "multiply", "divide"]),
+        num1: z.string(),
+        num2: z.string(),
+      },
     },
     async ({ operation, num1, num2 }) => {
       console.log(`Received request: operation=${operation}, num1=${num1}, num2=${num2}`);
